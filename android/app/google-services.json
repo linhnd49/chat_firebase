@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "541179140313",
+    "project_id": "softbase-83f30",
+    "storage_bucket": "softbase-83f30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541179140313:android:0b8c756de8110f7a6c46c8",
+        "android_client_info": {
+          "package_name": "com.example.softbase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyV1b7MN2JGLkWrM9Q_QKE1TbxXC0pzac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

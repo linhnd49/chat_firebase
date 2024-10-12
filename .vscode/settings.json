@@ -1,0 +1,11 @@
+{
+    "git.ignoreLimitWarning": true,
+    "dart.sdkPaths": [
+        "/Users/nguyendinhlinh/Documents/flutter_version"
+    ],
+    "dart.flutterSdkPaths": [
+        "/Users/nguyendinhlinh/Documents/flutter_version"
+    ],
+    "dart.flutterSdkPath": "/Users/nguyendinhlinh/Documents/flutter_version/flutter_3.10.3",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
