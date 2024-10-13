@@ -48,78 +48,75 @@ class _MessageScreenState
         ColorApp.colorA7A,
       ])),
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const VSpacing(spacing: Dimens.spacing20),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: Dimens.spacing24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: ColorApp.white.withOpacity(0.2),
-                      radius: 22,
-                      child: const ImageWidget(
-                          asset: IconApp.ic_search, width: 22, height: 22),
-                    ),
-                    Text("home".tr(),
-                        style: context.myTheme.textThemeT1.title.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                            color: ColorApp.white)),
-                    const CircleAvatar(
-                      radius: 22,
-                      backgroundColor: ColorApp.white,
-                    )
-                  ],
-                ),
+        child: Column(
+          children: <Widget>[
+            const VSpacing(spacing: Dimens.spacing20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimens.spacing24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundColor: ColorApp.white.withOpacity(0.2),
+                    radius: 22,
+                    child: const ImageWidget(
+                        asset: IconApp.ic_search, width: 22, height: 22),
+                  ),
+                  Text("home".tr(),
+                      style: context.myTheme.textThemeT1.title.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          color: ColorApp.white)),
+                  const CircleAvatar(
+                    radius: 22,
+                    backgroundColor: ColorApp.white,
+                  )
+                ],
               ),
-              const VSpacing(spacing: Dimens.spacing30),
-              Container(
-                height: 90,
-                color: ColorApp.transparent,
-                padding: const EdgeInsets.only(left: Dimens.spacing24),
-                child: ListViewBase(
-                    itemCount: 10,
-                    scrollHorizontal: true,
-                    expanded: false,
-                    builder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                            right: index == 9
-                                ? Dimens.spacing20
-                                : Dimens.spacing12),
-                        width: 60,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.all(Dimens.spacing2),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ColorApp.white, width: 0.7),
-                                  shape: BoxShape.circle,
-                                  color: ColorApp.transparent),
-                              child: const CircleAvatar(
-                                radius: 26,
-                                backgroundColor: ColorApp.white,
-                              ),
+            ),
+            const VSpacing(spacing: Dimens.spacing30),
+            Container(
+              height: 90,
+              color: ColorApp.transparent,
+              padding: const EdgeInsets.only(left: Dimens.spacing24),
+              child: ListViewBase(
+                  itemCount: 10,
+                  scrollHorizontal: true,
+                  expanded: false,
+                  builder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.only(
+                          right:
+                              index == 9 ? Dimens.spacing20 : Dimens.spacing12),
+                      width: 60,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.all(Dimens.spacing2),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: ColorApp.white, width: 0.7),
+                                shape: BoxShape.circle,
+                                color: ColorApp.transparent),
+                            child: const CircleAvatar(
+                              radius: 26,
+                              backgroundColor: ColorApp.white,
                             ),
-                            const VSpacing(spacing: Dimens.spacing10),
-                            Text(
-                              "Marina",
-                              style: context.myTheme.textThemeT1.caption
-                                  .copyWith(color: ColorApp.white),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
-              ),
-              const VSpacing(spacing: 20),
-              Container(
+                          ),
+                          const VSpacing(spacing: Dimens.spacing10),
+                          Text(
+                            "Marina",
+                            style: context.myTheme.textThemeT1.caption
+                                .copyWith(color: ColorApp.white),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+            const VSpacing(spacing: 20),
+            Expanded(
+              child: Container(
                 width: double.infinity,
                 padding:
                     const EdgeInsets.symmetric(horizontal: Dimens.spacing24),
@@ -139,53 +136,55 @@ class _MessageScreenState
                           borderRadius: BorderRadius.circular(16)),
                     ),
                     const VSpacing(spacing: 30),
-                    ...List.generate(15, (index) {
-                      return Slidable(
-                        endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: <Widget>[
-                              const HSpacing(spacing: 30),
-                              Container(
-                                width: 36,
-                                height: 36,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorApp.colorE08,
-                                ),
-                                child: const Icon(
-                                  Icons.notifications,
-                                  size: 22,
-                                  color: ColorApp.white,
-                                ),
-                              ),
-                              const HSpacing(spacing: 12),
-                              Container(
-                                width: 36,
-                                height: 36,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorApp.colorA4C,
-                                ),
-                                child: const Icon(
-                                  Icons.delete,
-                                  size: 22,
-                                  color: ColorApp.white,
-                                ),
-                              ),
-                            ]),
-                        child: MessageItem(
-                          onClick: () {
-                            context.pushWithNamed(context,
-                                routerName: ArchRouters.chatScreen);
-                          },
-                        ),
-                      );
-                    })
+                    ListViewBase(
+                        itemCount: 12,
+                        builder: (context, index) {
+                          return Slidable(
+                            endActionPane: ActionPane(
+                                motion: const ScrollMotion(),
+                                children: <Widget>[
+                                  const HSpacing(spacing: 30),
+                                  Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorApp.colorE08,
+                                    ),
+                                    child: const Icon(
+                                      Icons.notifications,
+                                      size: 22,
+                                      color: ColorApp.white,
+                                    ),
+                                  ),
+                                  const HSpacing(spacing: 12),
+                                  Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorApp.colorA4C,
+                                    ),
+                                    child: const Icon(
+                                      Icons.delete,
+                                      size: 22,
+                                      color: ColorApp.white,
+                                    ),
+                                  ),
+                                ]),
+                            child: MessageItem(
+                              onClick: () {
+                                context.pushWithNamed(context,
+                                    routerName: ArchRouters.chatScreen);
+                              },
+                            ),
+                          );
+                        })
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

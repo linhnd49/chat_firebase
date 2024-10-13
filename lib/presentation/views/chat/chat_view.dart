@@ -97,61 +97,30 @@ class _ChatPageState extends BaseStateScreen<ChatCubit, ChatState, ChatPage> {
             child: state.listChat != null
                 ? ListView.separated(
                     reverse: true,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Dimens.spacing16),
-                    separatorBuilder: (_, __) => const SizedBox(
-                      height: 12,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(
+                        Dimens.spacing16, 0, Dimens.spacing16, Dimens.spacing6),
+                    separatorBuilder: (_, index) {
+                      final item = state.listChat![index];
+                      return SizedBox(
+                        height: item.isFirstMsg != true ? 0 : Dimens.spacing12,
+                      );
+                    },
                     itemCount: state.listChat!.length,
                     itemBuilder: (context, index) {
                       final item = state.listChat![index];
-                      if (item.type == MessageType.receiver) {
-                        return Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(item.content,
-                              style: context.myTheme.textThemeT1.caption
-                                  .copyWith(color: ColorApp.colorE08)),
-                        );
+                      if (item.userType == UserType.receiver) {
+                        return _MessageReceiveItem(item: item);
                       }
-                      return Container(
-                        alignment: Alignment.centerRight,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                  color: ColorApp.colorA7A,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft:
-                                          Radius.circular(Dimens.spacing16),
-                                      bottomLeft:
-                                          Radius.circular(Dimens.spacing16),
-                                      bottomRight:
-                                          Radius.circular(Dimens.spacing16))),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: Dimens.spacing12,
-                                  horizontal: Dimens.spacing6),
-                              child: Text(item.content,
-                                  style: context.myTheme.textThemeT1.caption
-                                      .copyWith(color: ColorApp.white)),
-                            ),
-                            const VSpacing(spacing: Dimens.spacing6),
-                            Text(
-                              item.time,
-                              style: context.myTheme.textThemeT1.title.copyWith(
-                                  color: ColorApp.black.withOpacity(0.5),
-                                  fontSize: 10),
-                            )
-                          ],
-                        ),
-                      );
+                      return _MessageSenderItem(item: item);
                     },
                   )
                 : Container()),
         Container(
           height: 70,
           width: double.infinity,
+          decoration: const BoxDecoration(
+            color: ColorApp.white,
+          ),
           padding: const EdgeInsets.fromLTRB(Dimens.spacing16, Dimens.spacing16,
               Dimens.spacing16, Dimens.spacing20),
           child: Row(
@@ -202,5 +171,110 @@ class _ChatPageState extends BaseStateScreen<ChatCubit, ChatState, ChatPage> {
     return OutlineInputBorder(
         borderSide: const BorderSide(color: ColorApp.transparent, width: 1),
         borderRadius: BorderRadius.circular(12));
+  }
+}
+
+class _MessageReceiveItem extends StatelessWidget {
+  final ChatItemDomain item;
+  const _MessageReceiveItem({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    bool isFirstMsg = item.isFirstMsg == true;
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+              radius: 16,
+              backgroundColor: ColorApp.transparent,
+              child: item.avatar != null
+                  ? NetWorkImageWidget(
+                      imageUrl: item.avatar!,
+                      shape: BoxShape.circle,
+                    )
+                  : Container()),
+          const HSpacing(spacing: Dimens.spacing6),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              isFirstMsg
+                  ? Text(
+                      item.name!,
+                      style: context.myTheme.textThemeT1.caption
+                          .copyWith(fontWeight: FontWeight.w700),
+                    )
+                  : Container(),
+              const VSpacing(spacing: Dimens.spacing4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    vertical: Dimens.spacing12, horizontal: Dimens.spacing6),
+                decoration: BoxDecoration(
+                    color: ColorApp.color4F1.withOpacity(0.06),
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(Dimens.spacing16),
+                        bottomLeft: Radius.circular(Dimens.spacing16),
+                        bottomRight: Radius.circular(Dimens.spacing16))),
+                child: Text(item.content,
+                    style: context.myTheme.textThemeT1.caption
+                        .copyWith(color: ColorApp.colorE08)),
+              ),
+              !isFirstMsg
+                  ? const VSpacing(spacing: Dimens.spacing4)
+                  : Container(),
+              !isFirstMsg
+                  ? Text(
+                      item.time,
+                      style: context.myTheme.textThemeT1.title.copyWith(
+                          color: ColorApp.black.withOpacity(0.5), fontSize: 10),
+                    )
+                  : Container()
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MessageSenderItem extends StatelessWidget {
+  final ChatItemDomain item;
+  const _MessageSenderItem({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    final isFirstMsg = item.isFirstMsg == true;
+
+    return Container(
+      alignment: Alignment.centerRight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                color: ColorApp.colorA7A,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimens.spacing16),
+                    bottomLeft: Radius.circular(Dimens.spacing16),
+                    bottomRight: Radius.circular(Dimens.spacing16))),
+            padding: const EdgeInsets.symmetric(
+                vertical: Dimens.spacing12, horizontal: Dimens.spacing6),
+            child: Text(item.content,
+                style: context.myTheme.textThemeT1.caption
+                    .copyWith(color: ColorApp.white)),
+          ),
+          const VSpacing(spacing: Dimens.spacing4),
+          !isFirstMsg
+              ? Text(
+                  item.time,
+                  style: context.myTheme.textThemeT1.title.copyWith(
+                      color: ColorApp.black.withOpacity(0.5), fontSize: 10),
+                )
+              : Container()
+        ],
+      ),
+    );
   }
 }

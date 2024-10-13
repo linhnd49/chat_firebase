@@ -78,6 +78,7 @@ class ColorApp {
   static const Color transparent = Colors.transparent;
 
   static const Color color1E1 = Color(0xffE1E1E1);
+  static const Color color7DB = Color(0xffD2D7DB);
   static const Color color6F6 = Color(0xffF6F6F6);
   static const Color colorF1F = Color(0xff1F1F1F);
   static const Color color18C = Color(0xff6D018C);
