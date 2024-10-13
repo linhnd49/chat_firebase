@@ -21,7 +21,8 @@ import '../../presentation/views/chat/chat_cubit.dart' as _i5;
 import '../../presentation/views/contacts/contacts_cubit.dart' as _i6;
 import '../../presentation/views/message/message_cubit.dart' as _i11;
 import '../../presentation/views/search/search_cubit.dart' as _i14;
-import '../../presentation/views/theme_manager/theme_manager.dart' as _i15;
+import '../../presentation/views/settings/settings_cubit.dart' as _i15;
+import '../../presentation/views/theme_manager/theme_manager.dart' as _i16;
 import '../datasources/firebase/events/analytic_events.dart' as _i3;
 import '../datasources/firebase/remote_config/remote_config_manager.dart'
     as _i13;
@@ -51,6 +52,7 @@ _i1.GetIt $initGetit(
   gh.singleton<_i12.RegisterCubit>(_i12.RegisterCubit());
   gh.singleton<_i13.RemoteConfigService>(_i13.RemoteConfigService());
   gh.singleton<_i14.SearchCubit>(_i14.SearchCubit());
-  gh.singleton<_i15.ThemeManager>(_i15.ThemeManager());
+  gh.singleton<_i15.SettingsCubit>(_i15.SettingsCubit());
+  gh.singleton<_i16.ThemeManager>(_i16.ThemeManager());
   return getIt;
 }

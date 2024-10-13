@@ -27,6 +27,15 @@ class IconApp {
   static const String ic_tab_message = "$images/ic_tab_message#TYPE.png";
   static const String ic_tab_setting = "$images/ic_tab_setting#TYPE.png";
 
+  //settings
+  static const String ic_setting_data = "$images/ic_setting_data.png";
+  static const String ic_setting_key_help = "$images/ic_setting_key_help.png";
+  static const String ic_setting_key_notification = "$images/ic_setting_key_notification.png";
+  static const String ic_setting_key_users = "$images/ic_setting_key_users.png";
+  static const String ic_setting_key = "$images/ic_setting_key.png";
+  static const String ic_setting_msg = "$images/ic_setting_msg.png";
+
+
   //other
   static const String ic_search = "$images/ic_search.png";
 }
