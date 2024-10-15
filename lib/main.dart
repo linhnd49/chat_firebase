@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:softbase/data/datasources/local/local_storage.dart';
 import 'package:softbase/data/di/injector.dart';
 import 'package:softbase/data/repositories/firebase_auth/firebase_auth_manager.dart';
+import 'package:softbase/data/repositories/firebase_firestore/firestore_manager.dart';
 import 'package:softbase/presentation/views/theme_manager/theme_manager.dart';
 import 'package:softbase/utils/constains/themes.dart';
 
@@ -29,6 +30,7 @@ void main() {
     await getIt<RemoteConfigService>().fetch();
     await getIt<ThemeManager>().getLastTheme();
     await getIt<AuthManager>().init();
+    await getIt<FireStoreManager>().init();
 
     runApp(EasyLocalization(
         supportedLocales: const [

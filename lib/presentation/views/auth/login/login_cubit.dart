@@ -19,22 +19,22 @@ class LoginCubit extends BaseCubit<LoginState> {
   final _userValidation = getIt.get<UserValidate>();
   final _authFirebase = getIt.get<AuthManager>();
 
-  void emailValidate({required String email}) {
-    var isValid = _userValidation.emailValid(email);
-    emit(state.copyWith(emailValid: isValid));
-  }
+  // void emailValidate({required String email}) {
+  //   var isValid = _userValidation.emailValid(email);
+  //   emit(state.copyWith(emailValid: isValid));
+  // }
 
-  void phoneValidate({required String phone}) {
-    var isValid = _userValidation.phoneValid(phone);
-    emit(state.copyWith(phoneValid: isValid));
-  }
+  // void phoneValidate({required String phone}) {
+  //   var isValid = _userValidation.phoneValid(phone);
+  //   emit(state.copyWith(phoneValid: isValid));
+  // }
 
-  void passValidate({required String pass}) {
-    var isValid = _userValidation.passValid(pass);
-    emit(state.copyWith(passValidCase: isValid));
-  }
+  // void passValidate({required String pass}) {
+  //   var isValid = _userValidation.passValid(pass);
+  //   emit(state.copyWith(passValidCase: isValid));
+  // }
 
-  Future login({required String username, required String password}) async {
+  Future login(LoginRequest request) async {
     if (isBusy) return;
     await run(() async {
       // final reponse = await _authFirebase.loginUser(
@@ -45,6 +45,7 @@ class LoginCubit extends BaseCubit<LoginState> {
       //     emit(state.copyWith());
       //   }
       // } else if (reponse is DataFailed) {}
+      _authFirebase.loginWithEmailAndPassword(request);
     });
   }
 }

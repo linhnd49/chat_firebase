@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:softbase/domain/requests/auth_request.dart';
 import 'package:softbase/presentation/views/auth/domain/social_type.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
 import 'package:softbase/presentation/widgets/image_widget.dart';
@@ -36,6 +37,9 @@ class _LoginScreenState
   void dispose() {
     super.dispose();
   }
+
+  @override
+  bool resizeToAvoidBottomInset() => false;
 
   @override
   AppBar? appBar(BuildContext context, LoginState state) {
@@ -85,7 +89,7 @@ class _LoginScreenState
                       padding: const EdgeInsets.symmetric(
                           horizontal: Dimens.spacing12),
                       child: ImageWidget(
-                        asset: SocialType.values[index].icon,
+                        asset: SocialType.values[index].icon(isBlack: true),
                         width: Dimens.spacing50,
                       ),
                     )),
@@ -118,7 +122,14 @@ class _LoginScreenState
           ),
           const Spacer(),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              if (_passController.text.isNotEmpty &&
+                  _emailController.text.isNotEmpty) {
+                cubit.login(LoginRequest(
+                    password: _passController.text,
+                    username: _emailController.text));
+              }
+            },
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(

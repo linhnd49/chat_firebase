@@ -7,7 +7,7 @@ part of 'contacts_state.dart';
 // **************************************************************************
 
 abstract class _$ContactsStateCWProxy {
-  ContactsState listContact(Map<String, List<ContactsItemDomain>>? listContact);
+  ContactsState listContact(Map<String, List<UserStoreDomain>>? listContact);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ContactsState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -16,7 +16,7 @@ abstract class _$ContactsStateCWProxy {
   /// ContactsState(...).copyWith(id: 12, name: "My name")
   /// ````
   ContactsState call({
-    Map<String, List<ContactsItemDomain>>? listContact,
+    Map<String, List<UserStoreDomain>>? listContact,
   });
 }
 
@@ -27,8 +27,7 @@ class _$ContactsStateCWProxyImpl implements _$ContactsStateCWProxy {
   final ContactsState _value;
 
   @override
-  ContactsState listContact(
-          Map<String, List<ContactsItemDomain>>? listContact) =>
+  ContactsState listContact(Map<String, List<UserStoreDomain>>? listContact) =>
       this(listContact: listContact);
 
   @override
@@ -46,7 +45,7 @@ class _$ContactsStateCWProxyImpl implements _$ContactsStateCWProxy {
       listContact: listContact == const $CopyWithPlaceholder()
           ? _value.listContact
           // ignore: cast_nullable_to_non_nullable
-          : listContact as Map<String, List<ContactsItemDomain>>?,
+          : listContact as Map<String, List<UserStoreDomain>>?,
     );
   }
 }

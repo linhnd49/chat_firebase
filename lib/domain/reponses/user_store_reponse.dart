@@ -1,11 +1,11 @@
-class ContactsItemDomain {
-  final String id;
+class UserStoreDomain {
+  final String userId;
   final String name;
   final String avatar;
   final String? description;
-  ContactsItemDomain(
+  UserStoreDomain(
       {required this.avatar,
       this.description,
       required this.name,
-      required this.id});
+      required this.userId});
 }

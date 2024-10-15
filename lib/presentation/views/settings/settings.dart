@@ -160,7 +160,37 @@ class _SettingsScreenState
                         ],
                       ),
                     );
-                  })
+                  }),
+                  GestureDetector(
+                    onTap: () {
+                      cubit.logout();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: Dimens.spacing50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimens.spacing12),
+                        color: ColorApp.color4F1.withOpacity(0.1),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Icon(
+                            Icons.logout_rounded,
+                            color: ColorApp.black,
+                            size: 22,
+                          ),
+                          const HSpacing(spacing: Dimens.spacing12),
+                          Text(
+                            "Log out",
+                            style: context.myTheme.textThemeT1.body
+                                .copyWith(fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const VSpacing(spacing: Dimens.spacing20)
                 ],
               ),
             ),

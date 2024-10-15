@@ -50,7 +50,7 @@ class _RegisterScreenState
   }
 
   @override
-  bool resizeToAvoidBottomInset() => true;
+  bool resizeToAvoidBottomInset() => false;
 
   @override
   Widget body(BuildContext context, RegisterState state) {

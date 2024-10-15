@@ -41,6 +41,7 @@ class IconApp {
   //other
   static const String ic_search = "$images/ic_search.png";
   static const String ic_apple = "$images/ic_apple.png";
+  static const String ic_apple_black = "$images/ic_apple_black.png";
   static const String ic_facebook = "$images/ic_facebook.png";
   static const String ic_google = "$images/ic_google.png";
 }

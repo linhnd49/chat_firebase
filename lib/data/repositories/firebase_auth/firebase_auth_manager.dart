@@ -13,7 +13,11 @@ abstract class AuthManager {
 
   Future<bool> loginWithApple();
 
+  Future<bool> loginWithEmailAndPassword(LoginRequest request);
+
   Future<bool> createAccountWithEmail(SignUpRequest request);
+
+  Future logout();
 
   User? get currentUser;
 
@@ -74,4 +78,19 @@ class AuthManagerImpl extends AuthManager {
 
   @override
   bool get isLogined => _currentUser != null;
+
+  @override
+  Future logout() async {
+    _auth.signOut();
+  }
+
+  @override
+  Future<bool> loginWithEmailAndPassword(LoginRequest request) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: request.username, password: request.password);
+      return true;
+    } catch (_) {}
+    return false;
+  }
 }

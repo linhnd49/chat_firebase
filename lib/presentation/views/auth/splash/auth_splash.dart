@@ -72,7 +72,7 @@ class _AuthSplashScreenState extends BaseStateScreen<AuthSplashCubit,
                                     shape: BoxShape.circle,
                                     color: ColorApp.white.withOpacity(0.19)),
                                 child: ImageWidget(
-                                  asset: SocialType.values[index].icon,
+                                  asset: SocialType.values[index].icon(),
                                 ),
                               )),
                     ),
@@ -111,7 +111,7 @@ class _AuthSplashScreenState extends BaseStateScreen<AuthSplashCubit,
                         width: double.infinity,
                         height: 50,
                         child: Text(
-                          "Sign up with mail",
+                          "Sign up with email",
                           style: context.myTheme.textThemeT1.body.copyWith(
                               color: ColorApp.white,
                               fontWeight: FontWeight.w500),

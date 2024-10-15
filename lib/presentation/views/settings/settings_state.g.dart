@@ -7,7 +7,7 @@ part of 'settings_state.dart';
 // **************************************************************************
 
 abstract class _$SettingsStateCWProxy {
-  SettingsState userInfo(ContactsItemDomain? userInfo);
+  SettingsState userInfo(UserStoreDomain? userInfo);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -16,7 +16,7 @@ abstract class _$SettingsStateCWProxy {
   /// SettingsState(...).copyWith(id: 12, name: "My name")
   /// ````
   SettingsState call({
-    ContactsItemDomain? userInfo,
+    UserStoreDomain? userInfo,
   });
 }
 
@@ -27,8 +27,7 @@ class _$SettingsStateCWProxyImpl implements _$SettingsStateCWProxy {
   final SettingsState _value;
 
   @override
-  SettingsState userInfo(ContactsItemDomain? userInfo) =>
-      this(userInfo: userInfo);
+  SettingsState userInfo(UserStoreDomain? userInfo) => this(userInfo: userInfo);
 
   @override
 
@@ -45,7 +44,7 @@ class _$SettingsStateCWProxyImpl implements _$SettingsStateCWProxy {
       userInfo: userInfo == const $CopyWithPlaceholder()
           ? _value.userInfo
           // ignore: cast_nullable_to_non_nullable
-          : userInfo as ContactsItemDomain?,
+          : userInfo as UserStoreDomain?,
     );
   }
 }
