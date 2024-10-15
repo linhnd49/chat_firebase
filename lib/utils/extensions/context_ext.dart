@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:softbase/data/repositories/firebase_auth/firebase_auth_manager.dart';
+import 'package:softbase/data/user/user_storage.dart';
 
 import '../../data/di/injector.dart';
 import '../../presentation/views/theme_manager/theme_manager.dart';
@@ -13,6 +15,15 @@ extension Style on BuildContext {
 extension ScreenSize on BuildContext {
   double get screenHeight => MediaQuery.of(this).size.height;
   double get screenWidth => MediaQuery.of(this).size.width;
+}
+
+extension BuildContextExt on BuildContext {
+  bool get isLogined {
+    if (getIt.get<AuthManager>().isLogined) {
+      return true;
+    }
+    return false;
+  }
 }
 
 extension Router on BuildContext {
@@ -168,13 +179,3 @@ extension Router on BuildContext {
 //     isShowingSnackBar = false;
 //   }
 // }
-
-extension BuildContextExt on BuildContext {
-  bool get isLogined {
-    // if (getIt.get<UserBuyerData>().userId != null &&
-    //     getIt.get<UserSellerData>().userId != null) {
-    //   return true;
-    // }
-    return false;
-  }
-}

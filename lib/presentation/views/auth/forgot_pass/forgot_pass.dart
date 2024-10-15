@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:libs_text_field/libs_text_field.dart';
 import 'package:softbase/app_router.dart';
 import 'package:softbase/presentation/views/auth/otp/otp.dart';
-import 'package:softbase/presentation/views/auth/widgets/dialog_auth.dart';
 import 'package:softbase/presentation/widgets/button_base.dart';
 
 import '../../../../utils/constains/export.dart';
@@ -60,7 +59,7 @@ class NewPasswordScreen extends StatelessWidget {
             const SizedBox(height: Dimens.spacing50),
             ButtonBase(
                 onPressed: () {
-                  DialogAuth().changePassFailed(context);
+                  // DialogAuth().changePassFailed(context);
                 },
                 text: "Confirm",
                 backgroundColor: ColorApp.colorB22)

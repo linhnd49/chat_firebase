@@ -1,10 +1,12 @@
+import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:softbase/presentation/views/base/base_cubit.dart';
 import 'package:softbase/utils/resources/data_state.dart';
 import 'package:softbase/utils/validations/user_validation.dart';
 
 import '../../../../data/di/injector.dart';
-import '../../../../data/repositories/network/api_repository_impl.dart';
+// import '../../../../data/repositories/network/api_repository_impl.dart';
+import '../../../../data/repositories/firebase_auth/firebase_auth_manager.dart';
 import '../../../../domain/reponses/auth_reponse.dart';
 import '../../../../domain/requests/auth_request.dart';
 import 'login_state.dart';
@@ -13,8 +15,9 @@ import 'login_state.dart';
 class LoginCubit extends BaseCubit<LoginState> {
   LoginCubit() : super(const LoginState());
 
-  final _apiRepository = getIt.get<ApiRepository>();
+  // final _apiRepository = getIt.get<ApiRepository>();
   final _userValidation = getIt.get<UserValidate>();
+  final _authFirebase = getIt.get<AuthManager>();
 
   void emailValidate({required String email}) {
     var isValid = _userValidation.emailValid(email);
@@ -34,14 +37,14 @@ class LoginCubit extends BaseCubit<LoginState> {
   Future login({required String username, required String password}) async {
     if (isBusy) return;
     await run(() async {
-      final reponse = await _apiRepository.loginUser(
-          request: LoginRequest(password: password, username: username));
-      if (reponse is DataSuccess) {
-        if (reponse.data != null && reponse.data!.data != null) {
-          getIt.registerSingleton<DataUser>(reponse.data!.data!);
-          emit(state.copyWith());
-        }
-      } else if (reponse is DataFailed) {}
+      // final reponse = await _authFirebase.loginUser(
+      //     request: LoginRequest(password: password, username: username));
+      // if (reponse is DataSuccess) {
+      //   if (reponse.data != null && reponse.data!.data != null) {
+      //     getIt.registerSingleton<DataUser>(reponse.data!.data!);
+      //     emit(state.copyWith());
+      //   }
+      // } else if (reponse is DataFailed) {}
     });
   }
 }

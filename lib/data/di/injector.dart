@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:softbase/data/datasources/remote/login_api_service.dart';
 import 'package:softbase/data/datasources/remote/register_api_service.dart';
 import 'package:softbase/data/di/injector.config.dart';
-import 'package:softbase/data/repositories/network/api_repository_impl.dart';
 
 import '../../utils/validations/user_validation.dart';
 
@@ -30,8 +29,8 @@ configureDependencies() {
   getIt.registerSingleton<RegisterApiService>(
       (RegisterApiService(getIt<Dio>())));
 
-  getIt.registerSingleton<ApiRepository>(
-      ApiRepositoryImpl(getIt<LoginApiService>(), getIt<RegisterApiService>()));
+  // getIt.registerSingleton<ApiRepository>(
+  //     ApiRepositoryImpl(getIt<LoginApiService>(), getIt<RegisterApiService>()));
 
   $initGetit(getIt);
 }

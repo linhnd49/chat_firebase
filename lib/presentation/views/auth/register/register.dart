@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:libs_text_field/libs_text_field.dart';
-import 'package:softbase/presentation/views/auth/otp/otp.dart';
-import 'package:softbase/presentation/widgets/button_base.dart';
-import 'package:softbase/presentation/widgets/divider_base.dart';
-import 'package:softbase/presentation/widgets/list_view_base.dart';
+import 'package:softbase/domain/requests/auth_request.dart';
+import 'package:softbase/presentation/views/auth/register/register_cubit.dart';
+import 'package:softbase/presentation/views/auth/register/register_state.dart';
+import 'package:softbase/presentation/views/base/base_screen.dart';
+import 'package:softbase/utils/extensions/context_ext.dart';
 
-import '../../../../app_router.dart';
 import '../../../../utils/constains/export.dart';
+import '../../../widgets/text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,91 +15,116 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _userNameController = TextEditingController();
+class _RegisterScreenState
+    extends BaseStateScreen<RegisterCubit, RegisterState, RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _confirmPassController = TextEditingController();
 
   @override
   void dispose() {
-    _userNameController.dispose();
+    _nameController.dispose();
     _passController.dispose();
+    _emailController.dispose();
     _confirmPassController.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register Page"),
+  AppBar? appBar(BuildContext context, RegisterState state) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: ColorApp.white,
+      leading: GestureDetector(
+        onTap: () {
+          context.popScreen(context);
+        },
+        child: const Icon(
+          Icons.arrow_back,
+          color: ColorApp.colorE08,
+          size: 22,
+        ),
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: Dimens.spacing20),
-        color: ColorApp.white,
-        child: ScrollViewBase(
-            child: Column(
-          children: <Widget>[
-            const SizedBox(height: Dimens.spacing20),
-            TextFieldBase(
-                hintText: "Email/phone", controller: _userNameController),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: Dimens.spacing15),
-              child: PassTextField(
-                  hintText: "Password", controller: _passController),
-            ),
-            PassTextField(
-                hintText: "Password again", controller: _confirmPassController),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: Dimens.spacing20),
-              child: ButtonBase(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(ArchRouters.otpScreen,
-                      arguments: OTPType.register);
-                },
-                text: "Register",
-                backgroundColor: ColorApp.red,
-              ),
-            ),
-            Container(
-              width: double.infinity,
+    );
+  }
+
+  @override
+  bool resizeToAvoidBottomInset() => true;
+
+  @override
+  Widget body(BuildContext context, RegisterState state) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.spacing24),
+      color: ColorApp.white,
+      child: Column(
+        children: <Widget>[
+          const VSpacing(spacing: Dimens.spacing30),
+          Text(
+            "Sign up with Email",
+            style: context.myTheme.textThemeT1.bigTitle.copyWith(
+                color: ColorApp.colorA7A, fontWeight: FontWeight.w700),
+          ),
+          const VSpacing(spacing: Dimens.spacing16),
+          Text(
+            "Get chatting with friends and family\ntoday by signing up for our chat app!",
+            style: context.myTheme.textThemeT1.caption
+                .copyWith(color: ColorApp.colorC7B),
+          ),
+          const VSpacing(spacing: Dimens.spacing50),
+          TextFieldLogin(label: "Your name", controller: _nameController),
+          const VSpacing(spacing: Dimens.spacing20),
+          TextFieldLogin(
+            label: "Your email",
+            controller: _emailController,
+            obscureText: true,
+          ),
+          const VSpacing(spacing: Dimens.spacing20),
+          TextFieldLogin(
+            label: "Password",
+            controller: _passController,
+            obscureText: true,
+          ),
+          const VSpacing(spacing: Dimens.spacing20),
+          TextFieldLogin(
+            label: "Confirm Password",
+            controller: _confirmPassController,
+            obscureText: true,
+          ),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              if (_nameController.text.isNotEmpty &&
+                  _emailController.text.isNotEmpty &&
+                  _passController.text.isNotEmpty &&
+                  _confirmPassController.text.isNotEmpty) {
+                cubit.createAccountWithEmail(SignUpRequest(
+                    email: _emailController.text,
+                    password: _passController.text,
+                    name: _nameController.text));
+              }
+            },
+            child: Container(
               alignment: Alignment.center,
-              child: const Row(
-                children: <Widget>[
-                  Expanded(
-                    child: DividerBase(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimens.spacing10),
-                    child: Text("or"),
-                  ),
-                  Expanded(
-                    child: DividerBase(),
-                  ),
-                ],
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(colors: [
+                    ColorApp.colorB09,
+                    ColorApp.colorA7A,
+                  ])),
+              width: double.infinity,
+              height: 50,
+              child: Text(
+                "Create an account",
+                style: context.myTheme.textThemeT1.body.copyWith(
+                    color: ColorApp.white, fontWeight: FontWeight.w600),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: RichText(
-                  text: TextSpan(children: [
-                TextSpan(
-                    text: "Have a account? ",
-                    style: Theme.of(context).textTheme.bodyMedium),
-                TextSpan(
-                    text: "Login?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: ColorApp.colorB22)),
-              ])),
-            )
-          ],
-        )),
+          ),
+          const VSpacing(spacing: Dimens.spacing30),
+        ],
       ),
     );
   }

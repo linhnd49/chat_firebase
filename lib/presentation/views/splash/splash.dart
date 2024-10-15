@@ -22,12 +22,14 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Timer(const Duration(milliseconds: 300), () {
-      Navigator.pushReplacementNamed(context, ArchRouters.home
-          // !getIt.get<LocalStorage>().isFirstOpen
-          //     ? ArchRouters.home
-          //     : ArchRouters.intro
-          );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(milliseconds: 300), () {
+        Navigator.pushReplacementNamed(context, ArchRouters.home
+            // !getIt.get<LocalStorage>().isFirstOpen
+            // ? ArchRouters.home
+            // : ArchRouters.intro
+            );
+      });
     });
     super.initState();
   }
@@ -47,8 +49,13 @@ class _SplashPageState extends State<SplashPage> {
                 width: double.infinity,
                 height: double.infinity,
               ),
+              const ImageWidget(
+                asset: IconApp.img_foreground_splash,
+                fit: BoxFit.fitWidth,
+                width: double.infinity,
+              ),
               Padding(
-                padding: EdgeInsets.only(bottom: context.screenHeight / 20),
+                padding: EdgeInsets.only(bottom: context.screenHeight / 10),
                 child: Text(
                   "textit".tr(),
                   style: context.myTheme.textThemeT1.header1.copyWith(

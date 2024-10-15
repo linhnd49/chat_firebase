@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:libs_text_field/libs_text_field.dart';
-import 'package:softbase/app_router.dart';
-import 'package:softbase/presentation/views/auth/widgets/dialog_auth.dart';
+import 'package:softbase/presentation/views/auth/domain/social_type.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
-import 'package:softbase/presentation/widgets/button_base.dart';
-import 'package:softbase/presentation/widgets/list_view_base.dart';
-import 'package:softbase/utils/extensions/keyboard_dectect.dart';
-
+import 'package:softbase/presentation/widgets/image_widget.dart';
+import 'package:softbase/utils/extensions/context_ext.dart';
 import '../../../../utils/constains/export.dart';
+import '../../../widgets/text_field.dart';
 import 'login_cubit.dart';
 import 'login_state.dart';
 
@@ -20,10 +17,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState
     extends BaseStateScreen<LoginCubit, LoginState, LoginScreen> {
-  final TextEditingController userNameController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _passController;
 
   @override
   void initState() {
+    _emailController = TextEditingController();
+    _passController = TextEditingController();
     super.initState();
   }
 
@@ -34,77 +34,119 @@ class _LoginScreenState
 
   @override
   void dispose() {
-    
     super.dispose();
   }
 
   @override
-  Widget body(BuildContext context, LoginState state) {
-    var sizeScreen = Dimens().size(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login Page"),
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: Dimens.spacing20),
-        child: ScrollConfiguration(
-          behavior: OverScrollCus(),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: sizeScreen.height / 4),
-                PhoneTextField(
-                    controller: userNameController),
-                const SizedBox(height: Dimens.spacing30),
-                const PassTextField(
-                    hintText: "Password"),
-                const SizedBox(height: Dimens.spacing5),
-                Container(
-                  alignment: Alignment.centerRight,
-                  width: double.infinity,
-                  child: TextButtonBase(
-                    text: "Forgot password?",
-                    onTab: () {
-                      KeyboardDetect().unfocusKeyboard();
-                      Navigator.of(context).pushNamed(ArchRouters.forgotScreen);
-                    },
-                  ),
-                ),
-                const SizedBox(height: Dimens.spacing30),
-                ButtonBase(
-                    onPressed: () {
-                      KeyboardDetect().unfocusKeyboard();
-                      DialogAuth().loginFailed(context);
-                    },
-                    text: "Login Pressed",
-                    backgroundColor: ColorApp.colorB22),
-                SizedBox(height: sizeScreen.height / 4),
-                GestureDetector(
-                  onTap: () {
-                    KeyboardDetect().unfocusKeyboard();
-                    Navigator.of(context).pushNamed(ArchRouters.register);
-                  },
-                  child: RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "Don't have account? ",
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    TextSpan(
-                        text: "Register?",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: ColorApp.colorB22)),
-                  ])),
-                )
-              ],
-            ),
-          ),
+  AppBar? appBar(BuildContext context, LoginState state) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: ColorApp.white,
+      leading: GestureDetector(
+        onTap: () {
+          context.popScreen(context);
+        },
+        child: const Icon(
+          Icons.arrow_back,
+          color: ColorApp.colorE08,
+          size: 22,
         ),
       ),
     );
   }
 
-  
+  @override
+  Widget body(BuildContext context, LoginState state) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.spacing24),
+      color: ColorApp.white,
+      child: Column(
+        children: <Widget>[
+          const VSpacing(spacing: Dimens.spacing30),
+          Text(
+            "Log in to Chatbox",
+            style: context.myTheme.textThemeT1.bigTitle.copyWith(
+                color: ColorApp.colorA7A, fontWeight: FontWeight.w700),
+          ),
+          const VSpacing(spacing: Dimens.spacing16),
+          Text(
+            "Welcome back! Sign in using your social\naccount or email to continue us",
+            style: context.myTheme.textThemeT1.caption
+                .copyWith(color: ColorApp.colorC7B),
+          ),
+          const VSpacing(spacing: Dimens.spacing30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+                SocialType.values.length,
+                (index) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Dimens.spacing12),
+                      child: ImageWidget(
+                        asset: SocialType.values[index].icon,
+                        width: Dimens.spacing50,
+                      ),
+                    )),
+          ),
+          const VSpacing(spacing: Dimens.spacing20),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: Divider(
+                      color: ColorApp.black.withOpacity(0.1), thickness: 1)),
+              const HSpacing(spacing: Dimens.spacing20),
+              Text(
+                "OR",
+                style: context.myTheme.textThemeT1.caption.copyWith(
+                    color: ColorApp.colorC7B, fontWeight: FontWeight.w800),
+              ),
+              const HSpacing(spacing: Dimens.spacing20),
+              Expanded(
+                  child: Divider(
+                      color: ColorApp.black.withOpacity(0.1), thickness: 1)),
+            ],
+          ),
+          const VSpacing(spacing: Dimens.spacing30),
+          TextFieldLogin(label: "Your email", controller: _emailController),
+          const VSpacing(spacing: Dimens.spacing30),
+          TextFieldLogin(
+            label: "Password",
+            controller: _passController,
+            obscureText: true,
+          ),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  gradient: const LinearGradient(colors: [
+                    ColorApp.colorB09,
+                    ColorApp.colorA7A,
+                  ])),
+              width: double.infinity,
+              height: 50,
+              child: Text(
+                "Log in",
+                style: context.myTheme.textThemeT1.body.copyWith(
+                    color: ColorApp.white, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          const VSpacing(spacing: Dimens.spacing4),
+          TextButton(
+              onPressed: () {},
+              child: Text(
+                "Forgot password?",
+                style: context.myTheme.textThemeT1.caption
+                    .copyWith(color: ColorApp.colorA7A),
+              )),
+          const VSpacing(spacing: Dimens.spacing30),
+        ],
+      ),
+    );
+  }
 }

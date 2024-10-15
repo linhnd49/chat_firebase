@@ -4,6 +4,7 @@ import 'package:softbase/presentation/views/auth/forgot_pass/forgot_pass.dart';
 import 'package:softbase/presentation/views/auth/login/login.dart';
 import 'package:softbase/presentation/views/auth/otp/otp.dart';
 import 'package:softbase/presentation/views/auth/register/register.dart';
+import 'package:softbase/presentation/views/auth/splash/auth_splash.dart';
 import 'package:softbase/presentation/views/bottom/bottom_view.dart';
 import 'package:softbase/presentation/views/chat/chat_view.dart';
 import 'package:softbase/presentation/views/search/search.dart';
@@ -18,10 +19,11 @@ class ArchRouters {
   static const forgotScreen = "/forgot_screen";
   static const home = "/home";
   static const search = "/search";
-  static const cart = "/cart";
+  // static const cart = "/cart";
   static const otpScreen = "/otp_screen";
-  static const newPassword = "/newPassword";
+  // static const newPassword = "/newPassword";
   static const chatScreen = "/chat_screen";
+  static const splashAuthScreen = "/splash_auth_screen";
 }
 
 class AppRouter {
@@ -44,8 +46,10 @@ class AppRouter {
       case ArchRouters.otpScreen:
         return transitionPageRTL(
             child: const OTPScreen(), settings: routeSettings);
-      case ArchRouters.newPassword:
-        return transitionPageRTL(child: const NewPasswordScreen());
+      // case ArchRouters.newPassword:
+      //   return transitionPageRTL(child: const NewPasswordScreen());
+      case ArchRouters.splashAuthScreen:
+        return transitionPageBTT(child: const AuthSplashScreen());
       case ArchRouters.chatScreen:
         return transitionPageBTT(child: const ChatPage());
       default:

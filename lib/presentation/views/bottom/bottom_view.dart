@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:softbase/app_router.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
+import 'package:softbase/utils/extensions/context_ext.dart';
 
 import '../../../utils/constains/colors.dart';
 import 'bottom_cubit.dart';
@@ -17,6 +19,12 @@ class _BottomViewState
   @override
   void initState() {
     localStorage.setIsFirstOpen();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!context.isLogined && mounted) {
+        context.pushWithNamed(context,
+            routerName: ArchRouters.splashAuthScreen);
+      }
+    });
     super.initState();
   }
 

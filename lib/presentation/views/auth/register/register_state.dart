@@ -10,5 +10,5 @@ class RegisterState extends Equatable {
   const RegisterState({this.isFailed, this.isLoading, this.isSuccess});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isSuccess, isFailed, isLoading];
 }

@@ -15,6 +15,8 @@ class IconApp {
 
   //splash
   static const String bg_splash = "$images/bg_splash.jpg";
+  static const String img_foreground_splash =
+      "$images/img_foreground_splash.png";
 
   //intro
   // static const String img_intro_1 = "$images/img_intro_1.svg";
@@ -30,12 +32,15 @@ class IconApp {
   //settings
   static const String ic_setting_data = "$images/ic_setting_data.png";
   static const String ic_setting_key_help = "$images/ic_setting_key_help.png";
-  static const String ic_setting_key_notification = "$images/ic_setting_key_notification.png";
+  static const String ic_setting_key_notification =
+      "$images/ic_setting_key_notification.png";
   static const String ic_setting_key_users = "$images/ic_setting_key_users.png";
   static const String ic_setting_key = "$images/ic_setting_key.png";
   static const String ic_setting_msg = "$images/ic_setting_msg.png";
 
-
   //other
   static const String ic_search = "$images/ic_search.png";
+  static const String ic_apple = "$images/ic_apple.png";
+  static const String ic_facebook = "$images/ic_facebook.png";
+  static const String ic_google = "$images/ic_google.png";
 }

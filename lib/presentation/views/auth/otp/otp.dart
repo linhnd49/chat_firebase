@@ -30,7 +30,7 @@ class OTPScreen extends StatelessWidget {
                 onPressed: () {
                   switch (args) {
                     case OTPType.forgotPass:
-                      Navigator.of(context).pushNamed(ArchRouters.newPassword);
+                      // Navigator.of(context).pushNamed(ArchRouters.newPassword);
                       break;
                     case OTPType.register:
                       log("register success");
