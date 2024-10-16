@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
@@ -123,10 +122,12 @@ class _ContactsScreenState
                                   child: Row(children: <Widget>[
                                     CircleAvatar(
                                       radius: 22,
-                                      child: NetWorkImageWidget(
-                                        imageUrl: itemContact[it].avatar,
-                                        shape: BoxShape.circle,
-                                      ),
+                                      child: itemContact[it].avatar != null
+                                          ? NetWorkImageWidget(
+                                              imageUrl: itemContact[it].avatar!,
+                                              shape: BoxShape.circle,
+                                            )
+                                          : Container(),
                                     ),
                                     const HSpacing(spacing: Dimens.spacing12),
                                     Column(

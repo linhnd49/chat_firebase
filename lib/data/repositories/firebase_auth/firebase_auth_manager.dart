@@ -35,6 +35,7 @@ class AuthManagerImpl extends AuthManager {
   Future init() async {
     _auth = FirebaseAuth.instance;
     _currentUser = _auth.currentUser;
+    log("check current user: $_currentUser");
   }
 
   @override
@@ -77,7 +78,7 @@ class AuthManagerImpl extends AuthManager {
   User? get currentUser => _currentUser;
 
   @override
-  bool get isLogined => _currentUser != null;
+  bool get isLogined =>  _currentUser != null;
 
   @override
   Future logout() async {

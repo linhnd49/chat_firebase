@@ -94,10 +94,12 @@ class _SettingsScreenState
                       ? Row(children: <Widget>[
                           CircleAvatar(
                             radius: 22,
-                            child: NetWorkImageWidget(
-                              imageUrl: state.userInfo!.avatar,
-                              shape: BoxShape.circle,
-                            ),
+                            child: state.userInfo!.avatar != null
+                                ? NetWorkImageWidget(
+                                    imageUrl: state.userInfo!.avatar!,
+                                    shape: BoxShape.circle,
+                                  )
+                                : Container(),
                           ),
                           const HSpacing(spacing: Dimens.spacing12),
                           Column(

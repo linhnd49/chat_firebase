@@ -46,6 +46,7 @@ abstract class BaseStateScreen<C extends Cubit<S>, S, W extends StatefulWidget>
   AppBar? appBar(BuildContext context, S state) => null;
 
   bool resizeToAvoidBottomInset() => true;
+  
   BottomNavigationBar? bottomNavigationBar(BuildContext context, S state) =>
       null;
 

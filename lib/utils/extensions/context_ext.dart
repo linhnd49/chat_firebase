@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:softbase/data/repositories/firebase_auth/firebase_auth_manager.dart';
-import 'package:softbase/data/user/user_storage.dart';
 
 import '../../data/di/injector.dart';
 import '../../presentation/views/theme_manager/theme_manager.dart';
