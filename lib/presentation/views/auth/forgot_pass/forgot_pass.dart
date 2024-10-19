@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:libs_text_field/libs_text_field.dart';
-import 'package:softbase/app_router.dart';
-import 'package:softbase/presentation/views/auth/otp/otp.dart';
 import 'package:softbase/presentation/widgets/button_base.dart';
 
 import '../../../../utils/constains/export.dart';
@@ -26,8 +24,8 @@ class ForgotScreen extends StatelessWidget {
               const SizedBox(height: Dimens.spacing50),
               ButtonBase(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(ArchRouters.otpScreen,
-                        arguments: OTPType.forgotPass);
+                    // Navigator.of(context).pushNamed(ArchRouters.otpScreen,
+                    //     arguments: OTPType.forgotPass);
                   },
                   text: "Send OTP",
                   backgroundColor: ColorApp.colorB22)

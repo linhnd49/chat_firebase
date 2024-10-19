@@ -1,13 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserStoreDomain {
-  final String userId;
-  final String name;
-  final String? avatar;
-  final String? description;
+  String? userId;
+  String? name;
+  String? avatar;
+  String? description;
   UserStoreDomain(
       {this.avatar,
-      this.description,
-      required this.name,
-      required this.userId});
+      this.description = "Your description profile",
+      this.name,
+      this.userId});
 
   UserStoreDomain.fromJson(Map<String, Object?> json)
       : this(
@@ -24,4 +26,10 @@ class UserStoreDomain {
       'description': description,
     };
   }
+
+  UserStoreDomain.fromQueryDocumentSnapshot(DocumentSnapshot snap)
+      : userId = snap.get('userId') as String?,
+        avatar = snap.get('avatar') as String?,
+        name = snap.get('name') as String?,
+        description = snap.get('description') as String?;
 }

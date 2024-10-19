@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:softbase/domain/requests/auth_request.dart';
@@ -15,11 +16,11 @@ abstract class AuthManager {
 
   Future<bool> loginWithEmailAndPassword(LoginRequest request);
 
-  Future<bool> createAccountWithEmail(SignUpRequest request);
+  Future<User?> createAccountWithEmail(SignUpRequest request);
 
-  Future logout();
+  Future<bool> logout();
 
-  User? get currentUser;
+  ValueNotifier<User?> get currentUser;
 
   bool get isLogined;
 }
@@ -29,21 +30,22 @@ class AuthManagerImpl extends AuthManager {
   final String tag = "AuthManager";
 
   late final FirebaseAuth _auth;
-  late final User? _currentUser;
+  late final ValueNotifier<User?> _currentUser;
 
   @override
   Future init() async {
     _auth = FirebaseAuth.instance;
-    _currentUser = _auth.currentUser;
-    log("check current user: $_currentUser");
+    _currentUser = ValueNotifier<User?>(_auth.currentUser);
   }
 
   @override
-  Future<bool> createAccountWithEmail(SignUpRequest request) async {
+  Future<User?> createAccountWithEmail(SignUpRequest request) async {
     try {
-      _auth.createUserWithEmailAndPassword(
-          email: request.email, password: request.password);
-      return true;
+      final credential = await _auth.createUserWithEmailAndPassword(
+          email: request.email.trim(), password: request.password.trim());
+      final user = credential.user;
+      _currentUser.value = user;
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         log('No user found for that email.', name: tag);
@@ -53,7 +55,7 @@ class AuthManagerImpl extends AuthManager {
         log("createAccountWithEmail catch error: $e", name: tag);
       }
     }
-    return false;
+    return null;
   }
 
   @override
@@ -75,21 +77,25 @@ class AuthManagerImpl extends AuthManager {
   }
 
   @override
-  User? get currentUser => _currentUser;
+  ValueNotifier<User?> get currentUser => _currentUser;
 
   @override
-  bool get isLogined =>  _currentUser != null;
+  bool get isLogined => _currentUser.value != null;
 
   @override
-  Future logout() async {
-    _auth.signOut();
+  Future<bool> logout() async {
+    try {
+      await _auth.signOut();
+      return true;
+    } catch (_) {}
+    return false;
   }
 
   @override
   Future<bool> loginWithEmailAndPassword(LoginRequest request) async {
     try {
       await _auth.signInWithEmailAndPassword(
-          email: request.username, password: request.password);
+          email: request.username.trim(), password: request.password.trim());
       return true;
     } catch (_) {}
     return false;

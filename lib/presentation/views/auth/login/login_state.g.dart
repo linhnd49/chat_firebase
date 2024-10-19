@@ -7,15 +7,11 @@ part of 'login_state.dart';
 // **************************************************************************
 
 abstract class _$LoginStateCWProxy {
-  LoginState isLoginned(bool? isLoginned);
-
   LoginState emailValid(bool? emailValid);
 
   LoginState passValidCase(PasswordCase? passValidCase);
 
   LoginState loginSuccess(bool? loginSuccess);
-
-  LoginState loginFailed(bool? loginFailed);
 
   LoginState phoneValid(bool? phoneValid);
 
@@ -26,11 +22,9 @@ abstract class _$LoginStateCWProxy {
   /// LoginState(...).copyWith(id: 12, name: "My name")
   /// ````
   LoginState call({
-    bool? isLoginned,
     bool? emailValid,
     PasswordCase? passValidCase,
     bool? loginSuccess,
-    bool? loginFailed,
     bool? phoneValid,
   });
 }
@@ -40,9 +34,6 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
   const _$LoginStateCWProxyImpl(this._value);
 
   final LoginState _value;
-
-  @override
-  LoginState isLoginned(bool? isLoginned) => this(isLoginned: isLoginned);
 
   @override
   LoginState emailValid(bool? emailValid) => this(emailValid: emailValid);
@@ -56,9 +47,6 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
       this(loginSuccess: loginSuccess);
 
   @override
-  LoginState loginFailed(bool? loginFailed) => this(loginFailed: loginFailed);
-
-  @override
   LoginState phoneValid(bool? phoneValid) => this(phoneValid: phoneValid);
 
   @override
@@ -70,18 +58,12 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
   /// LoginState(...).copyWith(id: 12, name: "My name")
   /// ````
   LoginState call({
-    Object? isLoginned = const $CopyWithPlaceholder(),
     Object? emailValid = const $CopyWithPlaceholder(),
     Object? passValidCase = const $CopyWithPlaceholder(),
     Object? loginSuccess = const $CopyWithPlaceholder(),
-    Object? loginFailed = const $CopyWithPlaceholder(),
     Object? phoneValid = const $CopyWithPlaceholder(),
   }) {
     return LoginState(
-      isLoginned: isLoginned == const $CopyWithPlaceholder()
-          ? _value.isLoginned
-          // ignore: cast_nullable_to_non_nullable
-          : isLoginned as bool?,
       emailValid: emailValid == const $CopyWithPlaceholder()
           ? _value.emailValid
           // ignore: cast_nullable_to_non_nullable
@@ -94,10 +76,6 @@ class _$LoginStateCWProxyImpl implements _$LoginStateCWProxy {
           ? _value.loginSuccess
           // ignore: cast_nullable_to_non_nullable
           : loginSuccess as bool?,
-      loginFailed: loginFailed == const $CopyWithPlaceholder()
-          ? _value.loginFailed
-          // ignore: cast_nullable_to_non_nullable
-          : loginFailed as bool?,
       phoneValid: phoneValid == const $CopyWithPlaceholder()
           ? _value.phoneValid
           // ignore: cast_nullable_to_non_nullable

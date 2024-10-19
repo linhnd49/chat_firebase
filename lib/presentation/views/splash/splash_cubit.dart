@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:injectable/injectable.dart';
 import 'package:softbase/data/di/injector.dart';
@@ -12,11 +13,16 @@ import 'package:softbase/presentation/views/splash/splash_state.dart';
 class SplashCubit extends BaseCubit<SplashState> {
   SplashCubit() : super(const SplashState());
 
+  final String _tag = "SplashCubit";
+
   Future init() async {
-    final currentUser = getIt.get<AuthManager>().currentUser;
+    final currentUser = getIt.get<AuthManager>().currentUser.value;
+    log("init splash: $currentUser", name: _tag);
     if (currentUser != null) {
       final userStorage = UserStoreDomain(
-          name: currentUser.displayName ?? "Empty name",
+          name: currentUser.displayName != "" && currentUser.displayName != null
+              ? currentUser.displayName!
+              : "Empty name",
           userId: currentUser.uid);
       await getIt.get<FireStoreManager>().initUser(userStorage);
     }

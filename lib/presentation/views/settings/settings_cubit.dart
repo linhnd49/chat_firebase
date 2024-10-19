@@ -24,6 +24,16 @@ class SettingsCubit extends BaseCubit<SettingsState> {
   }
 
   Future logout() async {
-    _authManager.logout();
+    final result = await _authManager.logout();
+    if (result) {
+      emit(state.copyWith(isLogoutSuccess: true));
+    } else {
+      emit(state.copyWith(isLogoutSuccess: false));
+    }
+    _clearState();
+  }
+
+  _clearState() {
+    emit(state.copyWith(isLogoutSuccess: null));
   }
 }

@@ -1,13 +1,11 @@
-import 'package:http/http.dart';
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 import 'package:softbase/presentation/views/base/base_cubit.dart';
-import 'package:softbase/utils/resources/data_state.dart';
-import 'package:softbase/utils/validations/user_validation.dart';
 
 import '../../../../data/di/injector.dart';
 // import '../../../../data/repositories/network/api_repository_impl.dart';
 import '../../../../data/repositories/firebase_auth/firebase_auth_manager.dart';
-import '../../../../domain/reponses/auth_reponse.dart';
 import '../../../../domain/requests/auth_request.dart';
 import 'login_state.dart';
 
@@ -16,8 +14,7 @@ class LoginCubit extends BaseCubit<LoginState> {
   LoginCubit() : super(const LoginState());
 
   // final _apiRepository = getIt.get<ApiRepository>();
-  final _userValidation = getIt.get<UserValidate>();
-  final _authFirebase = getIt.get<AuthManager>();
+  // final _userValidation = getIt.get<UserValidate>();
 
   // void emailValidate({required String email}) {
   //   var isValid = _userValidation.emailValid(email);
@@ -34,18 +31,31 @@ class LoginCubit extends BaseCubit<LoginState> {
   //   emit(state.copyWith(passValidCase: isValid));
   // }
 
+  // listenUser() async {
+  //   getIt.get<AuthManager>().currentUser.addListener(() {
+  //     final currentUser = getIt.get<AuthManager>().currentUser.value;
+  //     log("login: $currentUser");
+  //   });
+  // }
+
   Future login(LoginRequest request) async {
     if (isBusy) return;
     await run(() async {
-      // final reponse = await _authFirebase.loginUser(
-      //     request: LoginRequest(password: password, username: username));
-      // if (reponse is DataSuccess) {
-      //   if (reponse.data != null && reponse.data!.data != null) {
-      //     getIt.registerSingleton<DataUser>(reponse.data!.data!);
-      //     emit(state.copyWith());
-      //   }
-      // } else if (reponse is DataFailed) {}
-      _authFirebase.loginWithEmailAndPassword(request);
+      final isLogined =
+          await getIt.get<AuthManager>().loginWithEmailAndPassword(request);
+      if (isLogined) {
+        emit(state.copyWith(loginSuccess: true));
+      } else {
+        emit(state.copyWith(loginSuccess: false));
+      }
+      _clearState();
     });
   }
+
+  _clearState() {
+    Timer(const Duration(seconds: 1), () {
+      emit(state.copyWith(loginSuccess: null));
+    });
+  }
+
 }

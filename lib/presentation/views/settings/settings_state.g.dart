@@ -9,6 +9,8 @@ part of 'settings_state.dart';
 abstract class _$SettingsStateCWProxy {
   SettingsState userInfo(UserStoreDomain? userInfo);
 
+  SettingsState isLogoutSuccess(bool? isLogoutSuccess);
+
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -17,6 +19,7 @@ abstract class _$SettingsStateCWProxy {
   /// ````
   SettingsState call({
     UserStoreDomain? userInfo,
+    bool? isLogoutSuccess,
   });
 }
 
@@ -30,6 +33,10 @@ class _$SettingsStateCWProxyImpl implements _$SettingsStateCWProxy {
   SettingsState userInfo(UserStoreDomain? userInfo) => this(userInfo: userInfo);
 
   @override
+  SettingsState isLogoutSuccess(bool? isLogoutSuccess) =>
+      this(isLogoutSuccess: isLogoutSuccess);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `SettingsState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -39,12 +46,17 @@ class _$SettingsStateCWProxyImpl implements _$SettingsStateCWProxy {
   /// ````
   SettingsState call({
     Object? userInfo = const $CopyWithPlaceholder(),
+    Object? isLogoutSuccess = const $CopyWithPlaceholder(),
   }) {
     return SettingsState(
       userInfo: userInfo == const $CopyWithPlaceholder()
           ? _value.userInfo
           // ignore: cast_nullable_to_non_nullable
           : userInfo as UserStoreDomain?,
+      isLogoutSuccess: isLogoutSuccess == const $CopyWithPlaceholder()
+          ? _value.isLogoutSuccess
+          // ignore: cast_nullable_to_non_nullable
+          : isLogoutSuccess as bool?,
     );
   }
 }

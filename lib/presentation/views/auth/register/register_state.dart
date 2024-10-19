@@ -5,10 +5,9 @@ part 'register_state.g.dart';
 @CopyWith()
 class RegisterState extends Equatable {
   final bool? isSuccess;
-  final bool? isFailed;
   final bool? isLoading;
-  const RegisterState({this.isFailed, this.isLoading, this.isSuccess});
+  const RegisterState({this.isLoading, this.isSuccess});
 
   @override
-  List<Object?> get props => [isSuccess, isFailed, isLoading];
+  List<Object?> get props => [isSuccess, isLoading];
 }

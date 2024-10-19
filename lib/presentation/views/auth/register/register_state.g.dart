@@ -7,8 +7,6 @@ part of 'register_state.dart';
 // **************************************************************************
 
 abstract class _$RegisterStateCWProxy {
-  RegisterState isFailed(bool? isFailed);
-
   RegisterState isLoading(bool? isLoading);
 
   RegisterState isSuccess(bool? isSuccess);
@@ -20,7 +18,6 @@ abstract class _$RegisterStateCWProxy {
   /// RegisterState(...).copyWith(id: 12, name: "My name")
   /// ````
   RegisterState call({
-    bool? isFailed,
     bool? isLoading,
     bool? isSuccess,
   });
@@ -31,9 +28,6 @@ class _$RegisterStateCWProxyImpl implements _$RegisterStateCWProxy {
   const _$RegisterStateCWProxyImpl(this._value);
 
   final RegisterState _value;
-
-  @override
-  RegisterState isFailed(bool? isFailed) => this(isFailed: isFailed);
 
   @override
   RegisterState isLoading(bool? isLoading) => this(isLoading: isLoading);
@@ -50,15 +44,10 @@ class _$RegisterStateCWProxyImpl implements _$RegisterStateCWProxy {
   /// RegisterState(...).copyWith(id: 12, name: "My name")
   /// ````
   RegisterState call({
-    Object? isFailed = const $CopyWithPlaceholder(),
     Object? isLoading = const $CopyWithPlaceholder(),
     Object? isSuccess = const $CopyWithPlaceholder(),
   }) {
     return RegisterState(
-      isFailed: isFailed == const $CopyWithPlaceholder()
-          ? _value.isFailed
-          // ignore: cast_nullable_to_non_nullable
-          : isFailed as bool?,
       isLoading: isLoading == const $CopyWithPlaceholder()
           ? _value.isLoading
           // ignore: cast_nullable_to_non_nullable

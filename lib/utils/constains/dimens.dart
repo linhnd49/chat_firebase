@@ -9,6 +9,7 @@ class Dimens {
   static const spacing5 = 5.0;
   static const spacing6 = 6.0;
   static const spacing7 = 7.0;
+  static const spacing8 = 8.0;
   static const spacing12 = 12.0;
   static const spacing15 = 15.0;
   static const spacing16 = 15.0;

@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
@@ -45,7 +42,6 @@ class _SplashPageState
 
   @override
   Widget body(BuildContext context, SplashState state) {
-    log("check set state: ${state.isSuccess}");
     return SizedBox(
         width: double.infinity,
         height: double.infinity,

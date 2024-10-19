@@ -8,7 +8,8 @@ part 'settings_state.g.dart';
 @CopyWith()
 class SettingsState extends Equatable {
   final UserStoreDomain? userInfo;
-  const SettingsState({this.userInfo});
+  final bool? isLogoutSuccess;
+  const SettingsState({this.userInfo, this.isLogoutSuccess});
   @override
-  List<Object?> get props => [userInfo];
+  List<Object?> get props => [userInfo, isLogoutSuccess];
 }

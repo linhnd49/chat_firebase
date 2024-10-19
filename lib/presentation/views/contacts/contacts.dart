@@ -134,12 +134,14 @@ class _ContactsScreenState
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text(itemContact[it].name,
-                                            style: context
-                                                .myTheme.textThemeT1.bigTitle
-                                                .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w500)),
+                                        itemContact[it].name != null
+                                            ? Text(itemContact[it].name!,
+                                                style: context.myTheme
+                                                    .textThemeT1.bigTitle
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w500))
+                                            : Container(),
                                         itemContact[it].description != null
                                             ? Text(
                                                 itemContact[it].description!,

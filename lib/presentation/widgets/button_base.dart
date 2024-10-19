@@ -122,15 +122,15 @@ class LoginRequiredWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isLogin = getIt<LoginCubit>().state.isLoginned ?? false;
+    // var isLogin = getIt<LoginCubit>().state.isLoginned ?? false;
 
     return GestureDetector(
       onTap: () {
-        if (isLogin) {
-          onTab();
-        } else {
-          Navigator.of(context).pushNamed(ArchRouters.login);
-        }
+        // if (isLogin) {
+        //   onTab();
+        // } else {
+        //   Navigator.of(context).pushNamed(ArchRouters.login);
+        // }
       },
       child: child,
     );

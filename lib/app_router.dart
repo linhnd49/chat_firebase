@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:softbase/presentation/views/auth/forgot_pass/forgot_pass.dart';
 import 'package:softbase/presentation/views/auth/login/login.dart';
-import 'package:softbase/presentation/views/auth/otp/otp.dart';
 import 'package:softbase/presentation/views/auth/register/register.dart';
 import 'package:softbase/presentation/views/auth/splash/auth_splash.dart';
 import 'package:softbase/presentation/views/bottom/bottom_view.dart';
@@ -43,9 +42,9 @@ class AppRouter {
         return transitionPageRTL(child: const BottomView());
       case ArchRouters.search:
         return transitionPageBTT(child: const SearchScreen());
-      case ArchRouters.otpScreen:
-        return transitionPageRTL(
-            child: const OTPScreen(), settings: routeSettings);
+      // case ArchRouters.otpScreen:
+      //   return transitionPageRTL(
+      //       child: const OTPScreen(), settings: routeSettings);
       // case ArchRouters.newPassword:
       //   return transitionPageRTL(child: const NewPasswordScreen());
       case ArchRouters.splashAuthScreen:

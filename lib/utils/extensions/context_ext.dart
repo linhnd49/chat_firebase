@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:softbase/data/repositories/firebase_auth/firebase_auth_manager.dart';
 
 import '../../data/di/injector.dart';
@@ -61,120 +62,46 @@ extension Router on BuildContext {
   }
 }
 
-// extension ShowModalSheet on BuildContext {
-//   Future<dynamic> showDevicePage() async {
-//     if (!getIt<CastCubit>().state.isConnectedToWifi) {
-//       return showWifiConnectionError();
-//     }
-//     return showModalBottomSheet(
-//       isScrollControlled: true,
-//       backgroundColor: Colors.transparent,
-//       context: this,
-//       builder: (_) {
-//         return SizedBox(
-//           height: screenHeight - AppDimens.spacing100,
-//           child: const ClipRRect(
-//             borderRadius:
-//                 BorderRadius.vertical(top: Radius.circular(AppDimens.radius25)),
-//             child: DevicePage(),
-//           ),
-//         );
-//       },
-//     );
-//   }
+extension ShowModalSheet on BuildContext {
+  void showToastDialog(String value) {
+    Fluttertoast.showToast(msg: value, gravity: ToastGravity.BOTTOM);
+  }
 
-//   Future<void> showSubUnlockBottomSheet(
-//     PurchaseTrackingDTO trackingDTO, {
-//     bool isDismissible = true,
-//     bool enableDrag = true,
-//     VoidCallback? onTappedClose,
-//   }) async {
-//     showModalBottomSheet(
-//       isDismissible: isDismissible,
-//       backgroundColor: Colors.transparent,
-//       enableDrag: enableDrag,
-//       context: this,
-//       builder: (_) {
-//         return UnlockPremiumBottomSheet(
-//           purchaseTrackingDTO: trackingDTO,
-//           onTappedClose: onTappedClose,
-//         );
-//       },
-//     );
-//   }
+  Future<dynamic> showDialogWidget(BuildContext context,
+      {required Widget child,
+      bool? barrierDismissible = false,
+      Color? barrierColor = Colors.black54}) async {
+    return showDialog(
+        barrierDismissible: barrierDismissible ?? false,
+        barrierColor: barrierColor,
+        context: context,
+        builder: (context) {
+          return WillPopScope(onWillPop: () async => true, child: child);
+        });
+  }
 
-//   Future<void> showHelpCenter() async {
-//     return showModalBottomSheet(
-//       isScrollControlled: true,
-//       backgroundColor: Colors.transparent,
-//       context: this,
-//       builder: (_) {
-//         return SizedBox(
-//           height: screenHeight - AppDimens.spacing100,
-//           child: const ClipRRect(
-//             borderRadius:
-//                 BorderRadius.vertical(top: Radius.circular(AppDimens.radius25)),
-//             child: HelpCenterPage(),
-//           ),
-//         );
-//       },
-//     );
-//   }
-
-//   Future<void> showWifiConnectionError() async {
-//     return showDialog(
-//       context: this,
-//       builder: (context) {
-//         return AppOptionalDialog(
-//           decorationWidget: const AppImageWidget(
-//             assetString: AppIcons.ic_warning,
-//             size: AppDimens.size100,
-//           ),
-//           title: 'Wifi is not enable',
-//           message: 'Please turn on Wifi network before using app',
-//           buttonTitle: 'Go to setting',
-//           onPressedAltBtn: () {},
-//           onPressedBtn: () => AppSettings.openWIFISettings(),
-//         );
-//       },
-//     );
-//   }
-
-//   void showSnackBar(String title, String message) async {
-//     if (isShowingSnackBar) {
-//       return;
-//     }
-//     final snackBar = SnackBar(
-//         elevation: 3,
-//         duration: const Duration(seconds: 3),
-//         behavior: SnackBarBehavior.floating,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(AppDimens.radius32),
-//         ),
-//         dismissDirection: DismissDirection.none,
-//         backgroundColor: myTheme.colorScheme.cardColor,
-//         margin: const EdgeInsets.symmetric(
-//             vertical: AppDimens.spacing70, horizontal: AppDimens.spacing40),
-//         content: Column(
-//           crossAxisAlignment: CrossAxisAlignment.stretch,
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Text(
-//               title,
-//               style: myTheme.textThemeT1.title,
-//               textAlign: TextAlign.center,
-//             ),
-//             const VSpacing(),
-//             Text(
-//               message,
-//               style: myTheme.textThemeT3.light,
-//               textAlign: TextAlign.center,
-//             ),
-//           ],
-//         ));
-//     isShowingSnackBar = true;
-//     ScaffoldMessenger.of(this).showSnackBar(snackBar);
-//     await Future.delayed(const Duration(seconds: 3));
-//     isShowingSnackBar = false;
-//   }
-// }
+  Future<dynamic> showLoading(
+    BuildContext context,
+  ) async {
+    showDialogWidget(context,
+        child: Dialog(
+          elevation: 0,
+          backgroundColor: ColorApp.transparent,
+          child: Center(
+            child: Container(
+              width: Dimens.spacing50,
+              height: Dimens.spacing50,
+              padding: const EdgeInsets.all(Dimens.spacing8),
+              decoration: BoxDecoration(
+                color: ColorApp.black.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const CircularProgressIndicator(
+                color: ColorApp.white,
+                strokeWidth: 2,
+              ),
+            ),
+          ),
+        ));
+  }
+}

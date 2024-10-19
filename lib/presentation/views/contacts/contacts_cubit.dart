@@ -62,12 +62,12 @@ class ContactsCubit extends BaseCubit<ContactsState> {
   ];
 
   initListContacts() {
-    _listContacts.sort((a, b) => a.name.compareTo(b.name));
+    _listContacts.sort((a, b) => a.name?.compareTo(b.name ?? "") ?? 0);
     Map<String, List<UserStoreDomain>> groupedItems = {};
 
     for (UserStoreDomain item in _listContacts) {
-      final firstText = item.name[0].toUpperCase();
-      if (groupedItems[firstText] == null) {
+      final firstText = item.name?[0].toUpperCase();
+      if (groupedItems[firstText] == null && firstText != null) {
         groupedItems[firstText] = [];
       }
       groupedItems[firstText]!.add(item);

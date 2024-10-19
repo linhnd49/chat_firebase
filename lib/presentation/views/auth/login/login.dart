@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:softbase/domain/requests/auth_request.dart';
 import 'package:softbase/presentation/views/auth/domain/social_type.dart';
@@ -40,6 +42,22 @@ class _LoginScreenState
 
   @override
   bool resizeToAvoidBottomInset() => false;
+
+  @override
+  bool shouldListen(BuildContext context, LoginState current) => true;
+
+  @override
+  void listener(BuildContext context, LoginState state) {
+    if (state.loginSuccess == true) {
+      context.showToastDialog("Login success!");
+      Timer(const Duration(seconds: 1), () {
+        context.popTwoScreen(context);
+      });
+    }
+    if (state.loginSuccess == false) {
+      context.showToastDialog("Login failed, please again!");
+    }
+  }
 
   @override
   AppBar? appBar(BuildContext context, LoginState state) {

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:softbase/app_router.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
 import 'package:softbase/presentation/views/settings/domain/settings_domain.dart';
 import 'package:softbase/presentation/views/settings/settings_cubit.dart';
@@ -48,6 +51,23 @@ class _SettingsScreenState
     SettingsDomain(
         image: IconApp.ic_setting_key_users, title: "Invite a friend")
   ];
+
+  @override
+  bool shouldListen(BuildContext context, SettingsState current) => true;
+
+  @override
+  void listener(BuildContext context, SettingsState state) {
+    if (state.isLogoutSuccess == true) {
+      context.showToastDialog("Logout success!");
+      Timer(const Duration(seconds: 1), () {
+        context.pushWithNamed(context,
+            routerName: ArchRouters.splashAuthScreen);
+      });
+    }
+    if (state.isLogoutSuccess == false) {
+      context.showToastDialog("Logout failed, please again!");
+    }
+  }
 
   @override
   Widget body(BuildContext context, SettingsState state) {
@@ -105,9 +125,13 @@ class _SettingsScreenState
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(state.userInfo!.name,
-                                  style: context.myTheme.textThemeT1.bigTitle
-                                      .copyWith(fontWeight: FontWeight.w500)),
+                              state.userInfo!.name != null
+                                  ? Text(state.userInfo!.name!,
+                                      style: context
+                                          .myTheme.textThemeT1.bigTitle
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500))
+                                  : Container(),
                               state.userInfo!.description != null
                                   ? Text(
                                       state.userInfo!.description!,

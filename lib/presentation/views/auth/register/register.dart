@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:softbase/domain/requests/auth_request.dart';
 import 'package:softbase/presentation/views/auth/register/register_cubit.dart';
@@ -53,6 +55,22 @@ class _RegisterScreenState
   bool resizeToAvoidBottomInset() => false;
 
   @override
+  bool shouldListen(BuildContext context, RegisterState current) => true;
+
+  @override
+  void listener(BuildContext context, RegisterState state) {
+    if (state.isSuccess == true) {
+      context.showToastDialog("Register account success!");
+      Timer(const Duration(seconds: 1), () {
+        context.popTwoScreen(context);
+      });
+    }
+    if (state.isSuccess == false) {
+      context.showToastDialog("Register account failed!");
+    }
+  }
+
+  @override
   Widget body(BuildContext context, RegisterState state) {
     return Container(
       width: double.infinity,
@@ -79,7 +97,6 @@ class _RegisterScreenState
           TextFieldLogin(
             label: "Your email",
             controller: _emailController,
-            obscureText: true,
           ),
           const VSpacing(spacing: Dimens.spacing20),
           TextFieldLogin(
