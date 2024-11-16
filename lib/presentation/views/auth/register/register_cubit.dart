@@ -41,6 +41,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
         final user = UserStoreDomain(
             avatar: reponse.photoURL, name: request.name, userId: reponse.uid);
         await getIt.get<FireStoreManager>().initUser(user);
+        // await getIt.get<FireStoreManager>().initAllUser();
         emit(state.copyWith(isSuccess: true));
       } else {
         emit(state.copyWith(isSuccess: false));

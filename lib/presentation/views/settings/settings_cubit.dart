@@ -4,7 +4,7 @@ import 'package:softbase/data/repositories/firebase_auth/firebase_auth_manager.d
 import 'package:softbase/presentation/views/base/base_cubit.dart';
 import 'package:softbase/presentation/views/settings/settings_state.dart';
 
-import '../../../domain/reponses/user_store_reponse.dart';
+import '../../../data/repositories/firebase_firestore/firestore_manager.dart';
 
 @singleton
 class SettingsCubit extends BaseCubit<SettingsState> {
@@ -12,15 +12,9 @@ class SettingsCubit extends BaseCubit<SettingsState> {
 
   final _authManager = getIt.get<AuthManager>();
 
-  final personInfo = UserStoreDomain(
-      avatar:
-          "https://images.pexels.com/photos/28494944/pexels-photo-28494944.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      name: "Nazrul Islam",
-      description: "Never give up 💪",
-      userId: "2");
-
   initSetting() {
-    emit(state.copyWith(userInfo: personInfo));
+    final currentUser = getIt.get<FireStoreManager>().userCurrent.value;
+    emit(state.copyWith(userInfo: currentUser));
   }
 
   Future logout() async {

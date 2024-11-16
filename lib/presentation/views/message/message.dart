@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -11,6 +10,7 @@ import 'package:softbase/utils/constains/dimens.dart';
 import 'package:softbase/utils/constains/icon.dart';
 import 'package:softbase/utils/extensions/context_ext.dart';
 
+import '../../../domain/reponses/user_store_reponse.dart';
 import 'message_cubit.dart';
 import 'message_state.dart';
 
@@ -27,6 +27,7 @@ class _MessageScreenState
 
   @override
   void initState() {
+    cubit.init();
     super.initState();
   }
 
@@ -66,9 +67,17 @@ class _MessageScreenState
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
                           color: ColorApp.white)),
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 22,
                     backgroundColor: ColorApp.white,
+                    child: state.currentUser != null &&
+                            state.currentUser!.avatar != null
+                        ? NetWorkImageWidget(
+                            imageUrl: state.currentUser!.avatar!,
+                            shape: BoxShape.circle,
+                            fit: BoxFit.contain,
+                          )
+                        : Container(),
                   )
                 ],
               ),
@@ -76,42 +85,54 @@ class _MessageScreenState
             const VSpacing(spacing: Dimens.spacing30),
             Container(
               height: 90,
+              width: double.infinity,
               color: ColorApp.transparent,
               padding: const EdgeInsets.only(left: Dimens.spacing24),
-              child: ListViewBase(
-                  itemCount: 10,
-                  scrollHorizontal: true,
-                  expanded: false,
-                  builder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.only(
-                          right:
-                              index == 9 ? Dimens.spacing20 : Dimens.spacing12),
-                      width: 60,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(Dimens.spacing2),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: ColorApp.white, width: 0.7),
-                                shape: BoxShape.circle,
-                                color: ColorApp.transparent),
-                            child: const CircleAvatar(
-                              radius: 26,
-                              backgroundColor: ColorApp.white,
-                            ),
+              child: state.listUserChat != null
+                  ? ListViewBase(
+                      itemCount: state.listUserChat!.length,
+                      scrollHorizontal: true,
+                      expanded: false,
+                      builder: (context, index) {
+                        final item = state.listUserChat![index];
+                        return Container(
+                          margin: EdgeInsets.only(
+                              right: index == 9
+                                  ? Dimens.spacing20
+                                  : Dimens.spacing12),
+                          width: 60,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(Dimens.spacing2),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: ColorApp.white, width: 0.7),
+                                    shape: BoxShape.circle,
+                                    color: ColorApp.transparent),
+                                child: CircleAvatar(
+                                  radius: 26,
+                                  backgroundColor: ColorApp.white,
+                                  child: item.avatar != null
+                                      ? NetWorkImageWidget(
+                                          imageUrl: item.avatar!,
+                                          shape: BoxShape.circle,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : Container(),
+                                ),
+                              ),
+                              const VSpacing(spacing: Dimens.spacing10),
+                              Text(
+                                item.name != null ? item.name! : "",
+                                style: context.myTheme.textThemeT1.caption
+                                    .copyWith(color: ColorApp.white),
+                              )
+                            ],
                           ),
-                          const VSpacing(spacing: Dimens.spacing10),
-                          Text(
-                            "Marina",
-                            style: context.myTheme.textThemeT1.caption
-                                .copyWith(color: ColorApp.white),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
+                        );
+                      })
+                  : Container(),
             ),
             const VSpacing(spacing: 20),
             Expanded(
@@ -135,50 +156,54 @@ class _MessageScreenState
                           borderRadius: BorderRadius.circular(16)),
                     ),
                     const VSpacing(spacing: 30),
-                    ListViewBase(
-                        itemCount: 12,
-                        builder: (context, index) {
-                          return Slidable(
-                            endActionPane: ActionPane(
-                                motion: const ScrollMotion(),
-                                children: <Widget>[
-                                  const HSpacing(spacing: 30),
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: ColorApp.colorE08,
-                                    ),
-                                    child: const Icon(
-                                      Icons.notifications,
-                                      size: 22,
-                                      color: ColorApp.white,
-                                    ),
-                                  ),
-                                  const HSpacing(spacing: 12),
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: ColorApp.colorA4C,
-                                    ),
-                                    child: const Icon(
-                                      Icons.delete,
-                                      size: 22,
-                                      color: ColorApp.white,
-                                    ),
-                                  ),
-                                ]),
-                            child: MessageItem(
-                              onClick: () {
-                                context.pushWithNamed(context,
-                                    routerName: ArchRouters.chatScreen);
-                              },
-                            ),
-                          );
-                        })
+                    state.listUserChat != null
+                        ? ListViewBase(
+                            itemCount: state.listUserChat!.length,
+                            builder: (context, index) {
+                              final item = state.listUserChat![index];
+                              return Slidable(
+                                endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    children: <Widget>[
+                                      const HSpacing(spacing: 30),
+                                      Container(
+                                        width: 36,
+                                        height: 36,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorApp.colorE08,
+                                        ),
+                                        child: const Icon(
+                                          Icons.notifications,
+                                          size: 22,
+                                          color: ColorApp.white,
+                                        ),
+                                      ),
+                                      const HSpacing(spacing: 12),
+                                      Container(
+                                        width: 36,
+                                        height: 36,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorApp.colorA4C,
+                                        ),
+                                        child: const Icon(
+                                          Icons.delete,
+                                          size: 22,
+                                          color: ColorApp.white,
+                                        ),
+                                      ),
+                                    ]),
+                                child: MessageItem(
+                                  user: item,
+                                  onClick: () {
+                                    context.pushWithNamed(context,
+                                        routerName: ArchRouters.chatScreen);
+                                  },
+                                ),
+                              );
+                            })
+                        : Container()
                   ],
                 ),
               ),
@@ -192,7 +217,8 @@ class _MessageScreenState
 
 class MessageItem extends StatelessWidget {
   final Function onClick;
-  const MessageItem({super.key, required this.onClick});
+  final UserStoreDomain user;
+  const MessageItem({super.key, required this.onClick, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -209,9 +235,16 @@ class MessageItem extends StatelessWidget {
               Stack(
                 alignment: Alignment.bottomRight,
                 children: <Widget>[
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 24,
-                    backgroundColor: ColorApp.black,
+                    backgroundColor: ColorApp.white,
+                    child: user.avatar != null
+                        ? NetWorkImageWidget(
+                            imageUrl: user.avatar!,
+                            shape: BoxShape.circle,
+                            fit: BoxFit.contain,
+                          )
+                        : Container(),
                   ),
                   Container(
                     width: 8,
@@ -227,13 +260,13 @@ class MessageItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Alex Linderson",
+                    user.name != null ? user.name! : "",
                     style: context.myTheme.textThemeT1.caption
                         .copyWith(fontWeight: FontWeight.w500, fontSize: 20),
                   ),
                   const VSpacing(spacing: 4),
                   Text(
-                    "How are you today?",
+                    user.description!,
                     style: context.myTheme.textThemeT1.small
                         .copyWith(color: ColorApp.colorC7B),
                   )

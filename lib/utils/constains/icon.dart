@@ -3,8 +3,8 @@
 class IconApp {
   //svg (should use .svg image for small size)
   //json
-  // static const String jsons = "assets/jsons";
-  // static const String ic_loading_op1 = "$jsons/ic_loading_op1.json";
+  static const String jsons = "assets/jsons";
+  static const String ic_loading_op1 = "$jsons/ic_loading_op1.json";
   // static const String ic_loading_op2 = "$jsons/ic_loading_op2.json";
   // static const String ic_loading_op3 = "$jsons/ic_loading_op3.json";
 

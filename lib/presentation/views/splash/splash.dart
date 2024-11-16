@@ -1,8 +1,7 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:softbase/presentation/views/base/base_screen.dart';
-import 'package:softbase/presentation/views/splash/splash_cubit.dart';
-import 'package:softbase/presentation/views/splash/splash_state.dart';
 import 'package:softbase/utils/constains/export.dart';
 import 'package:softbase/utils/extensions/context_ext.dart';
 
@@ -16,32 +15,23 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState
-    extends BaseStateScreen<SplashCubit, SplashState, SplashPage> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    cubit.init();
-    super.initState();
-  }
-
-  @override
-  bool shouldListen(BuildContext context, SplashState current) => true;
-
-  @override
-  void listener(BuildContext context, SplashState state) {
-    if (state.isSuccess == true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(milliseconds: 500), () {
         Navigator.pushReplacementNamed(context, ArchRouters.home
             // !getIt.get<LocalStorage>().isFirstOpen
             // ? ArchRouters.home
             // : ArchRouters.intro
             );
       });
-    }
+    });
+    super.initState();
   }
 
   @override
-  Widget body(BuildContext context, SplashState state) {
+  Widget build(BuildContext context) {
     return SizedBox(
         width: double.infinity,
         height: double.infinity,

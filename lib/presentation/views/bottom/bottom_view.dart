@@ -19,6 +19,7 @@ class _BottomViewState
   @override
   void initState() {
     localStorage.setIsFirstOpen();
+    cubit.init();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!context.isLogined && mounted) {
         context.pushWithNamed(context,

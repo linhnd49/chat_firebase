@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../utils/constains/export.dart';
+
 // import '../../utils/constains/export.dart';
 
 class ImageWidget extends StatelessWidget {
@@ -44,13 +46,18 @@ class NetWorkImageWidget extends StatelessWidget {
   final String imageUrl;
   final BoxShape? shape;
   final int? typeLoading;
+  final BoxFit? fit;
 
   const NetWorkImageWidget(
-      {super.key, required this.imageUrl, this.typeLoading, this.shape});
+      {super.key,
+      required this.imageUrl,
+      this.typeLoading,
+      this.shape,
+      this.fit});
 
   @override
   Widget build(BuildContext context) {
-    // Widget loading = Image.asset(IconApp.ic_loading_op1, fit: BoxFit.contain);
+    Widget loading = Lottie.asset(IconApp.ic_loading_op1, fit: BoxFit.contain);
     // switch (typeLoading) {
     //   case 1:
     //     loading = Lottie.asset(IconApp.ic_loading_op2, fit: BoxFit.contain);
@@ -62,17 +69,18 @@ class NetWorkImageWidget extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       filterQuality: FilterQuality.low,
+      fit: fit,
       imageBuilder: (context, image) => Container(
         decoration: BoxDecoration(
             shape: shape ?? BoxShape.rectangle,
             image: DecorationImage(image: image, fit: BoxFit.fill)),
       ),
       placeholder: (context, url) => Container(
-          // child: loading,
-          ),
+        child: loading,
+      ),
       errorWidget: (context, url, error) => Container(
-          // child: loading,
-          ),
+        child: loading,
+      ),
     );
   }
 }

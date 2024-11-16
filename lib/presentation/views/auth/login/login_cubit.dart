@@ -6,6 +6,8 @@ import 'package:softbase/presentation/views/base/base_cubit.dart';
 import '../../../../data/di/injector.dart';
 // import '../../../../data/repositories/network/api_repository_impl.dart';
 import '../../../../data/repositories/firebase_auth/firebase_auth_manager.dart';
+import '../../../../data/repositories/firebase_firestore/firestore_manager.dart';
+import '../../../../domain/reponses/user_store_reponse.dart';
 import '../../../../domain/requests/auth_request.dart';
 import 'login_state.dart';
 
@@ -44,6 +46,13 @@ class LoginCubit extends BaseCubit<LoginState> {
       final isLogined =
           await getIt.get<AuthManager>().loginWithEmailAndPassword(request);
       if (isLogined) {
+        final user = getIt.get<AuthManager>().currentUser.value;
+        if (user != null) {
+          final userDomain = UserStoreDomain(
+              avatar: user.photoURL, name: user.displayName, userId: user.uid);
+          await getIt.get<FireStoreManager>().initUser(userDomain);
+        }
+
         emit(state.copyWith(loginSuccess: true));
       } else {
         emit(state.copyWith(loginSuccess: false));
@@ -57,5 +66,4 @@ class LoginCubit extends BaseCubit<LoginState> {
       emit(state.copyWith(loginSuccess: null));
     });
   }
-
 }

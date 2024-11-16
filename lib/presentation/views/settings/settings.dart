@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:softbase/app_router.dart';
+import 'package:softbase/data/di/injector.dart';
 import 'package:softbase/presentation/views/base/base_screen.dart';
+import 'package:softbase/presentation/views/bottom/bottom_cubit.dart';
+import 'package:softbase/presentation/views/bottom/bottom_tab.dart';
 import 'package:softbase/presentation/views/settings/domain/settings_domain.dart';
 import 'package:softbase/presentation/views/settings/settings_cubit.dart';
 import 'package:softbase/presentation/views/settings/settings_state.dart';
@@ -60,6 +63,7 @@ class _SettingsScreenState
     if (state.isLogoutSuccess == true) {
       context.showToastDialog("Logout success!");
       Timer(const Duration(seconds: 1), () {
+        getIt.get<BottomCubit>().updateTab(BottomTab.message);
         context.pushWithNamed(context,
             routerName: ArchRouters.splashAuthScreen);
       });

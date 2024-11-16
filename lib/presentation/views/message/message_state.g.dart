@@ -7,9 +7,9 @@ part of 'message_state.dart';
 // **************************************************************************
 
 abstract class _$MessageStateCWProxy {
-  MessageState error(DioException? error);
+  MessageState listUserChat(List<UserStoreDomain>? listUserChat);
 
-  MessageState noMoreData(bool? noMoreData);
+  MessageState currentUser(UserStoreDomain? currentUser);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `MessageState(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -18,8 +18,8 @@ abstract class _$MessageStateCWProxy {
   /// MessageState(...).copyWith(id: 12, name: "My name")
   /// ````
   MessageState call({
-    DioException? error,
-    bool? noMoreData,
+    List<UserStoreDomain>? listUserChat,
+    UserStoreDomain? currentUser,
   });
 }
 
@@ -30,10 +30,12 @@ class _$MessageStateCWProxyImpl implements _$MessageStateCWProxy {
   final MessageState _value;
 
   @override
-  MessageState error(DioException? error) => this(error: error);
+  MessageState listUserChat(List<UserStoreDomain>? listUserChat) =>
+      this(listUserChat: listUserChat);
 
   @override
-  MessageState noMoreData(bool? noMoreData) => this(noMoreData: noMoreData);
+  MessageState currentUser(UserStoreDomain? currentUser) =>
+      this(currentUser: currentUser);
 
   @override
 
@@ -44,18 +46,18 @@ class _$MessageStateCWProxyImpl implements _$MessageStateCWProxy {
   /// MessageState(...).copyWith(id: 12, name: "My name")
   /// ````
   MessageState call({
-    Object? error = const $CopyWithPlaceholder(),
-    Object? noMoreData = const $CopyWithPlaceholder(),
+    Object? listUserChat = const $CopyWithPlaceholder(),
+    Object? currentUser = const $CopyWithPlaceholder(),
   }) {
     return MessageState(
-      error: error == const $CopyWithPlaceholder()
-          ? _value.error
+      listUserChat: listUserChat == const $CopyWithPlaceholder()
+          ? _value.listUserChat
           // ignore: cast_nullable_to_non_nullable
-          : error as DioException?,
-      noMoreData: noMoreData == const $CopyWithPlaceholder()
-          ? _value.noMoreData
+          : listUserChat as List<UserStoreDomain>?,
+      currentUser: currentUser == const $CopyWithPlaceholder()
+          ? _value.currentUser
           // ignore: cast_nullable_to_non_nullable
-          : noMoreData as bool?,
+          : currentUser as UserStoreDomain?,
     );
   }
 }

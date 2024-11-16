@@ -94,8 +94,9 @@ class AuthManagerImpl extends AuthManager {
   @override
   Future<bool> loginWithEmailAndPassword(LoginRequest request) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      final userCredential = await _auth.signInWithEmailAndPassword(
           email: request.username.trim(), password: request.password.trim());
+      _currentUser.value = userCredential.user;
       return true;
     } catch (_) {}
     return false;
